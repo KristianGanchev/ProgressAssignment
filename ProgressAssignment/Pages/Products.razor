@@ -1,0 +1,48 @@
+﻿@page "/products"
+
+@inject IProductService productService
+
+<PageTitle>Products</PageTitle>
+
+@if (products == null)
+{
+    <TelerikLoaderContainer Text="Please wait..."></TelerikLoaderContainer>
+}
+else
+{
+    <TelerikMediaQuery Media="(max-width: 500px)" OnChange="@SmallMediaQueryChange"></TelerikMediaQuery>
+    <TelerikMediaQuery Media="(min-width: 500px) and (max-width: 768px)" OnChange="@MediumMediaQueryChange"></TelerikMediaQuery>
+    <TelerikMediaQuery Media="(min-width: 768px)" OnChange="@LargeMediaQueryChange"></TelerikMediaQuery>
+
+    <div class="grid-layout-container">
+        <TelerikGridLayout ColumnSpacing="10px">
+            <GridLayoutColumns>
+                @for (int columnIndex = 0; columnIndex < GridLayoutColumnsCount; columnIndex++)
+                {
+                    <GridLayoutColumn Width="1fr"></GridLayoutColumn>
+                }
+            </GridLayoutColumns>
+            <GridLayoutItems>
+                @foreach (var product in products)
+                {
+                    <GridLayoutItem>
+                        <ProductCard Title="@product.Title"
+                                     Price="@product.Price"
+                                     Category="@product.Category"
+                                     Image="@product.Image"
+                                     Stock="@product.Stock" />
+                    </GridLayoutItem>
+                }
+            </GridLayoutItems>
+        </TelerikGridLayout>
+    </div>
+}
+
+@code {
+    private const string ProductsUrl = "sample-data/products.json";
+
+    protected async override Task OnInitializedAsync()
+    {
+        products = await productService.GetProducts(ProductsUrl);
+    }
+}

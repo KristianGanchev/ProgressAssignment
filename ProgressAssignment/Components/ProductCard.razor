@@ -1,0 +1,31 @@
+﻿<div class="product-cart-container">
+    <TelerikCard Width="200px">
+        <CardImage Class="card-image" Src="@Image"></CardImage>
+        <CardBody Class="card-body">
+            <CardTitle Class="card-title">@Title</CardTitle>
+            <CardSubTitle>@Category</CardSubTitle>
+        </CardBody>
+        @if (Stock > 0)
+        {
+            <CardActions Layout="@CardActionsLayout.End">
+                <p class="card-price">@Price$</p>
+                <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat"
+                               Rounded="full" ThemeColor="primay"
+                               Title="Add To Wishlist">
+                    <TelerikSvgIcon Icon="@SvgIcon.Heart" ThemeColor="primary" Size="@ThemeConstants.SvgIcon.Size.ExtraLarge" />
+                </TelerikButton>
+                <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat"
+                               Rounded="full"
+                               Title="Add To Cart">
+                    <TelerikSvgIcon Icon="@SvgIcon.Cart" Size="@ThemeConstants.SvgIcon.Size.ExtraLarge" />
+                </TelerikButton>
+            </CardActions>
+        }
+        else
+        {
+            <CardActions Layout="@CardActionsLayout.Center">
+                <p class="out-of-stock">Out Of Stock</p>
+            </CardActions>
+        }
+    </TelerikCard>
+</div>
